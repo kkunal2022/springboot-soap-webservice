@@ -1,4 +1,4 @@
-package com.kunal.springboot.ws.endpoint;
+package com.kunal.springboot.ws.ws.endpoint;
 
 import java.math.BigInteger;
 
@@ -15,7 +15,7 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
  */
 
 @Endpoint
-public class B2bCustomerServiceEndpoint {
+public class CustomerServiceEndpoint {
 	
 	@ResponsePayload
 	@PayloadRoot(localPart="createCustomerRequest", namespace="http://kunal.soapws.com/types/v1")

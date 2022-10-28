@@ -1,4 +1,4 @@
-package com.kunal.springboot.ws.config;
+package com.kunal.springboot.ws.ws.config;
 
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
@@ -52,7 +52,7 @@ public class WebserviceConfig extends WsConfigurerAdapter {
 		return new SimpleXsdSchema(new ClassPathResource("customer-service.xsd"));
 	}
 
-
+	/*
 	@Bean
 	public XwsSecurityInterceptor securityInterceptor() {
 		XwsSecurityInterceptor securityInterceptor = new XwsSecurityInterceptor();
@@ -60,7 +60,8 @@ public class WebserviceConfig extends WsConfigurerAdapter {
 		securityInterceptor.setPolicyConfiguration(new ClassPathResource("securityPolicy.xml"));
 		return securityInterceptor;
 	}
-
+	*/
+	
 	@Bean
 	public SimplePasswordValidationCallbackHandler callbackHandler() {
 		SimplePasswordValidationCallbackHandler callbackHandler = new SimplePasswordValidationCallbackHandler();
@@ -72,7 +73,7 @@ public class WebserviceConfig extends WsConfigurerAdapter {
 	public void addInterceptors(List<EndpointInterceptor> interceptors) {
 		interceptors.add(payloadLoggingInterceptor());
 		interceptors.add(payloadValidatingInterceptor());
-		interceptors.add(securityInterceptor());
+		//interceptors.add(securityInterceptor());
 	}
 
 	@Bean
