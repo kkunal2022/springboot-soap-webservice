@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://kunal.soapws.com/types/v1"
+	xmlns:tns="http://kunal.soapws.com/types/v1"
+	elementFormDefault="qualified">
+	
+	<xs:element name="createCustomerRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="customerName">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="50" />
+							<xs:whiteSpace value="collapse" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="customerCR">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="50" />
+							<xs:whiteSpace value="collapse" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="customerPassword">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="14" />
+							<xs:whiteSpace value="collapse" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="createCustomerResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="customerID" type="xs:integer" />
+				<xs:element name="details" type="xs:string" />
+				<xs:element name="status" type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="createCustomerFault">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="errorMessage"
+					type="xs:normalizedString" />
+				<xs:element name="errorCode" type="xs:int" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
