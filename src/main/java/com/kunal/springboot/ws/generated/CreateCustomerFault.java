@@ -70,10 +70,11 @@ public class CreateCustomerFault {
      * @param value
      *     allowed object is
      *     {@link String }
+     * @return 
      *     
      */
-    public void setErrorMessage(String value) {
-        this.errorMessage = value;
+    public String setErrorMessage(String value) {
+        return this.errorMessage = value;
     }
 
     /**

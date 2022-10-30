@@ -1,10 +1,13 @@
 package com.kunal.springboot.ws.ws.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.oxm.jaxb.Jaxb2Marshaller;
+import org.springframework.ws.client.support.interceptor.ClientInterceptor;
 import org.springframework.ws.config.annotation.EnableWs;
 import org.springframework.ws.config.annotation.WsConfigurerAdapter;
 import org.springframework.ws.server.EndpointInterceptor;
@@ -20,6 +23,8 @@ import org.springframework.xml.xsd.XsdSchema;
 import java.util.Collections;
 import java.util.List;
 
+import com.kunal.springboot.ws.utility.MySoapClientInterceptor;
+
 /**
  * Kumar.Kunal
  */
@@ -27,6 +32,9 @@ import java.util.List;
 @Configuration
 @EnableWs
 public class WebserviceConfig extends WsConfigurerAdapter {
+	
+	@Value("${soap.server.endpoint}")
+    public String soap_server_endpoint;
 
 	@Bean
 	public ServletRegistrationBean<MessageDispatcherServlet> messageDispatcherServlet(ApplicationContext applicationContext) {
@@ -42,7 +50,7 @@ public class WebserviceConfig extends WsConfigurerAdapter {
 		DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
 		wsdl11Definition.setPortTypeName("CustomerServicePort");
 		wsdl11Definition.setLocationUri("/ws");
-		wsdl11Definition.setTargetNamespace("http://kunal.soapws.com/service/v1");
+		wsdl11Definition.setTargetNamespace(soap_server_endpoint);
 		wsdl11Definition.setSchema(customerSchema());
 		return wsdl11Definition;
 	}
@@ -51,16 +59,6 @@ public class WebserviceConfig extends WsConfigurerAdapter {
 	public XsdSchema customerSchema() {
 		return new SimpleXsdSchema(new ClassPathResource("customer-service.xsd"));
 	}
-
-	/*
-	@Bean
-	public XwsSecurityInterceptor securityInterceptor() {
-		XwsSecurityInterceptor securityInterceptor = new XwsSecurityInterceptor();
-		securityInterceptor.setCallbackHandler(callbackHandler());
-		securityInterceptor.setPolicyConfiguration(new ClassPathResource("securityPolicy.xml"));
-		return securityInterceptor;
-	}
-	*/
 	
 	@Bean
 	public SimplePasswordValidationCallbackHandler callbackHandler() {
@@ -73,7 +71,7 @@ public class WebserviceConfig extends WsConfigurerAdapter {
 	public void addInterceptors(List<EndpointInterceptor> interceptors) {
 		interceptors.add(payloadLoggingInterceptor());
 		interceptors.add(payloadValidatingInterceptor());
-		//interceptors.add(securityInterceptor());
+		
 	}
 
 	@Bean
