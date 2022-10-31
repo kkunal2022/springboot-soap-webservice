@@ -1,6 +1,6 @@
 package com.kunal.springboot.ws.exception;
 
-import com.kunal.springboot.ws.generated.ServiceStatus;
+import com.kunal.springboot.ws.generated.ServiceFault;
 
 /**
  * Kumar.Kunal
@@ -8,24 +8,25 @@ import com.kunal.springboot.ws.generated.ServiceStatus;
 
 public class ServiceFaultException extends RuntimeException {
 
-	private static final long serialVersionUID = 1L;
-	private ServiceStatus serviceStatus;
+    private static final long serialVersionUID = -915192026117183870L;
+    
+	private ServiceFault serviceFault;
 
-	public ServiceFaultException(String message, ServiceStatus serviceStatus) {
-		super(message);
-		this.serviceStatus = serviceStatus;
-	}
+    public ServiceFaultException(String message, ServiceFault serviceFault) {
+        super(message);
+        this.serviceFault = serviceFault;
+    }
 
-	public ServiceFaultException(String message, Throwable e, ServiceStatus serviceStatus) {
-		super(message, e);
-		this.serviceStatus = serviceStatus;
-	}
+    public ServiceFaultException(String message, Throwable e, ServiceFault serviceFault) {
+        super(message, e);
+        this.serviceFault = serviceFault;
+    }
 
-	public ServiceStatus getServiceStatus() {
-		return serviceStatus;
-	}
+    public ServiceFault getServiceFault() {
+        return serviceFault;
+    }
 
-	public void setServiceStatus(ServiceStatus serviceStatus) {
-		this.serviceStatus = serviceStatus;
-	}
+    public void setServiceFault(ServiceFault serviceFault) {
+        this.serviceFault = serviceFault;
+    }
 }

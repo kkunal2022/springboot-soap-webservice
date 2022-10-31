@@ -1,5 +1,7 @@
 package com.kunal.springboot.ws.utility;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.ws.client.WebServiceClientException;
 import org.springframework.ws.client.support.interceptor.ClientInterceptor;
 import org.springframework.ws.context.MessageContext;
@@ -12,9 +14,9 @@ import org.springframework.ws.soap.SoapMessage;
  * Kumar.Kunal
 */
 
-public class MySoapClientInterceptor implements ClientInterceptor {
+public class SoapClientInterceptor implements ClientInterceptor {
 
-    //private static final Logger LOGGER = LoggerFactory.getLogger(MySoapClientInterceptor.class);
+	private static final Logger logger = LogManager.getLogger(SoapClientInterceptor.class);
 
     @Override
     public boolean handleRequest(MessageContext messageContext) throws WebServiceClientException {
@@ -31,11 +33,11 @@ public class MySoapClientInterceptor implements ClientInterceptor {
     @Override
     public boolean handleFault(MessageContext messageContext) throws WebServiceClientException {
 
-        //LOGGER.info("intercepted a fault...");
+    	logger.info("Intercepted a SOAP Fault ");
         SoapBody soapBody = getSoapBody(messageContext);
         SoapFault soapFault = soapBody.getFault();
-        //LOGGER.error(soapFault.getFaultStringOrReason());
-        throw new RuntimeException(String.format("Error occured while invoking SOAP service - %s ", soapFault.getFaultStringOrReason()));
+        logger.error("SOAP Fault encountered from SoapClientInterceptor class {} " , soapFault.getFaultStringOrReason());
+        throw new RuntimeException(String.format("Error occured while invoking SOAP service - %s " , soapFault.getFaultStringOrReason()));
     }
 
     @Override
