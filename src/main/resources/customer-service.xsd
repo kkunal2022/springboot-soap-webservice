@@ -1,57 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	targetNamespace="http://kunal.soapws.com/types/v1"
-	xmlns:tns="http://kunal.soapws.com/types/v1"
-	elementFormDefault="qualified">
-	
-	<xs:element name="createCustomerRequest">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element name="customerName">
-					<xs:simpleType>
-						<xs:restriction base="xs:string">
-							<xs:maxLength value="50" />
-							<xs:whiteSpace value="collapse" />
-						</xs:restriction>
-					</xs:simpleType>
-				</xs:element>
-				<xs:element name="customerCR">
-					<xs:simpleType>
-						<xs:restriction base="xs:string">
-							<xs:maxLength value="50" />
-							<xs:whiteSpace value="collapse" />
-						</xs:restriction>
-					</xs:simpleType>
-				</xs:element>
-				<xs:element name="customerPassword">
-					<xs:simpleType>
-						<xs:restriction base="xs:string">
-							<xs:maxLength value="14" />
-							<xs:whiteSpace value="collapse" />
-						</xs:restriction>
-					</xs:simpleType>
-				</xs:element>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-	
-	<xs:element name="createCustomerResponse">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element name="customerID" type="xs:integer" />
-				<xs:element name="details" type="xs:string" />
-				<xs:element name="status" type="xs:string" />
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-	
-	<xs:element name="createCustomerFault">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element name="errorMessage"
-					type="xs:normalizedString" />
-				<xs:element name="errorCode" type="xs:int" />
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
+<xs:schema xmlns:tns="https://www.kunal.soapws.com/customers"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="https://www.kunal.soapws.com/customers"
+           elementFormDefault="qualified">
+
+    <xs:element name="CreateCustomerRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="CustomerDetails" type="tns:CustomerDetails"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="CreateCustomerResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="status" type="tns:Status"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetCustomerDetailsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetCustomerDetailsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="CustomerDetails" type="tns:CustomerDetails"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetAllCustomerDetailsRequest">
+        <xs:complexType>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllCustomerDetailsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="CustomerDetails" type="tns:CustomerDetails" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="DeleteCustomerDetailsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="DeleteCustomerDetailsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="status" type="tns:Status"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="CustomerDetails">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element name="customerCR" type="xs:string"/>
+            <xs:element name="password" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="Status">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="SUCCESS"/>
+            <xs:enumeration value="FAIL"/>
+        </xs:restriction>
+    </xs:simpleType>
+
 </xs:schema>

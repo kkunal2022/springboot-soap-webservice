@@ -1,0 +1,10 @@
+<!--
+    POST http://localhost:8080/customer-soap-webservices/ws
+    WSSE PasswordText Authentication with username as user and Password as password
+-->
+
+<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
+    <Body>
+        <GetAllCustomerDetailsRequest xmlns="https://www.kunal.soapws.com/customers"/>
+    </Body>
+</Envelope>
